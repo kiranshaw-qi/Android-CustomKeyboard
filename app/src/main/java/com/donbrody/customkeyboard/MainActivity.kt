@@ -23,11 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         keyboard = findViewById(R.id.customKeyboardView)
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, numberField)
-
-        // Custom fields for number decimal keyboard
-        keyboard.setDecimalSeparator(',')
-        keyboard.setThousandSeparator('.') // This is for applying localisation
-        keyboard.setTextSize(30.0F)
         keyboard.registerEditText(
             CustomKeyboardView.KeyboardType.NUMBER_DECIMAL,
             numberDecimalField

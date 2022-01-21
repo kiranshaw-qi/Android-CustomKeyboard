@@ -39,10 +39,10 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
     private var fieldInFocus: EditText? = null
     private val keyboards = HashMap<EditText, KeyboardLayout?>()
     private val keyboardListener: KeyboardListener
-    private var decimalSeparator: Char = '.'
-    private var thousandSeparator: Char = ','
-    private var textSize: Float = 22.0F
-    private var gapSize: Int = 8
+    var decimalSeparator: Char = '.'
+    var thousandSeparator: Char = ','
+    var textSize: Float = 22.0F
+    var gapSize: Int = 8
 
     init {
         setBackgroundColor(Color.GRAY)
@@ -216,22 +216,6 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
             it.createKeyboard(measuredWidth.toFloat())
             addView(keyboard)
         }
-    }
-
-    fun setDecimalSeparator(decimalSeparator: Char) {
-        this.decimalSeparator = decimalSeparator
-    }
-
-    fun setThousandSeparator(thousandSeparator: Char) {
-        this.thousandSeparator = thousandSeparator
-    }
-
-    fun setTextSize(textSize: Float) {
-        this.textSize = textSize
-    }
-
-    fun setBtnGapSize(gapSize: Int) { // in Dp
-        this.gapSize = gapSize
     }
 
     private fun createKeyboardLayout(type: KeyboardType, ic: InputConnection): KeyboardLayout? {
