@@ -8,14 +8,18 @@ import com.donbrody.customkeyboard.components.keyboard.controllers.KeyboardContr
 /**
  * Created by Don.Brody on 7/20/18.
  */
-class NumberDecimalKeyboardLayout(context: Context, controller: KeyboardController?,
-                                  private val decimalSeparator: Char
+class NumberDecimalKeyboardLayout(
+    context: Context, controller: KeyboardController?,
+    private val decimalSeparator: Char,
+    private val customTextSize: Float,
+    private val customGapSize: Int
 ) :
     KeyboardLayout(context, controller) {
 
     override fun createRows(): List<LinearLayout> {
         val columnWidth = 0.20f
-        textSize = 30.0f
+        textSize = customTextSize
+        gapSize = customGapSize
 
         val rowOne = ArrayList<View>()
         rowOne.add(createButton("1", columnWidth, '1'))

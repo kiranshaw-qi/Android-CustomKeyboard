@@ -22,9 +22,12 @@ class MainActivity : AppCompatActivity() {
         val qwertyField: EditText = findViewById(R.id.testQwertyField)
 
         keyboard = findViewById(R.id.customKeyboardView)
-        keyboard.setDecimalSeparator(',') // This is for applying localisation
-        keyboard.setThousandSeparator('.') // This is for applying localisation
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, numberField)
+
+        // Custom fields for number decimal keyboard
+        keyboard.setDecimalSeparator(',')
+        keyboard.setThousandSeparator('.') // This is for applying localisation
+        keyboard.setTextSize(30.0F)
         keyboard.registerEditText(
             CustomKeyboardView.KeyboardType.NUMBER_DECIMAL,
             numberDecimalField

@@ -23,6 +23,7 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
 
     private var screenWidth = 0.0f
     internal var textSize = 20.0f
+    internal var gapSize = 8
 
     private val Int.toDp: Int
         get() = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -50,8 +51,9 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
         )
-        lp.topMargin = 15.toDp
-        lp.bottomMargin = 15.toDp
+        if (this !is QwertyKeyboardLayout) {
+            wrapper.setPadding(gapSize, gapSize, gapSize, gapSize)
+        }
         wrapper.layoutParams = lp
         wrapper.orientation = VERTICAL
         wrapper.setBackgroundColor(Color.WHITE)
@@ -63,10 +65,10 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
         val layoutParams: LayoutParams
         if(this !is QwertyKeyboardLayout) {
             layoutParams = LayoutParams(
-                (screenWidth / 4.0F - 12).toInt(),
+                (screenWidth / 4.0F - (gapSize * 2)).toInt(),
                 LayoutParams.WRAP_CONTENT
             )
-            layoutParams.setMargins(6, 6, 6, 6)
+            layoutParams.setMargins(gapSize, gapSize, gapSize, gapSize)
         } else {
             layoutParams = LayoutParams(
                 (screenWidth * widthAsPctOfScreen).toInt(),

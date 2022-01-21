@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -42,6 +41,8 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
     private val keyboardListener: KeyboardListener
     private var decimalSeparator: Char = '.'
     private var thousandSeparator: Char = ','
+    private var textSize: Float = 22.0F
+    private var gapSize: Int = 8
 
     init {
         setBackgroundColor(Color.GRAY)
@@ -225,6 +226,14 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
         this.thousandSeparator = thousandSeparator
     }
 
+    fun setTextSize(textSize: Float) {
+        this.textSize = textSize
+    }
+
+    fun setBtnGapSize(gapSize: Int) { // in Dp
+        this.gapSize = gapSize
+    }
+
     private fun createKeyboardLayout(type: KeyboardType, ic: InputConnection): KeyboardLayout? {
         when(type) {
             KeyboardType.NUMBER -> {
@@ -234,7 +243,9 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
                 return NumberDecimalKeyboardLayout(
                     context,
                     createKeyboardController(type, ic),
-                    decimalSeparator
+                    decimalSeparator,
+                    textSize,
+                    gapSize
                 )
             }
             KeyboardType.QWERTY -> {
