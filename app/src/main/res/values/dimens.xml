@@ -4,5 +4,4 @@
     <dimen name="fieldMarginBottom">25dp</dimen>
     <dimen name="labelMargin">15dp</dimen>
     <dimen name="labelTextSize">20sp</dimen>
-    <dimen name="cornerRadius8">8dp</dimen>
 </resources>
