@@ -36,7 +36,7 @@ abstract class ExpandableView(
         // Ignore calls that occur during animation (prevents issues from wood-pecker'ing)
         if (state !== ExpandableState.EXPANDING && state !== ExpandableState.COLLAPSING) {
             val pixels = 500.toDp
-            val millis : Long = pixels.toLong() / 2 // translates layout 2px per millisecond
+            val millis : Long = pixels.toLong() / 4 // translates layout 2px per millisecond
             val deltaY: Float
             when (state) {
                 ExpandableState.EXPANDED -> {
