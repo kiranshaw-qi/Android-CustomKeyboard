@@ -2,12 +2,7 @@ package com.kiranshaw.customdecimalkeyboard
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.inputmethod.InputConnection
-import com.donbrody.customkeyboard.components.keyboard.CustomKeyboardView
-import com.donbrody.customkeyboard.components.keyboard.layouts.KeyboardLayout
-import com.donbrody.customkeyboard.components.keyboard.layouts.NumberDecimalKeyboardLayout
-import com.donbrody.customkeyboard.components.keyboard.layouts.NumberKeyboardLayout
-import com.donbrody.customkeyboard.components.keyboard.layouts.QwertyKeyboardLayout
+import com.kiranshaw.customdecimalkeyboard.components.keyboard.CustomKeyboardView
 
 /**
  * tracksynq-android
