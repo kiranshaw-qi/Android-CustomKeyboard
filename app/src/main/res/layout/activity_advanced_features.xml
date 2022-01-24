@@ -82,7 +82,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.kiranshaw.customdecimalkeyboard.components.keyboard.CustomisedKeyboardView
+    <com.donbrody.customkeyboard.components.keyboard.CustomKeyboardView
         android:id="@+id/customKeyboardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

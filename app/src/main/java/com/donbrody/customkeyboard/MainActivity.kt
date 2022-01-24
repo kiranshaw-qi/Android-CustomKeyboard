@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.kiranshaw.customdecimalkeyboard.components.keyboard.CustomisedKeyboardView
-import com.kiranshaw.customdecimalkeyboard.components.keyboard.CustomKeyboardView
+import com.donbrody.customkeyboard.components.keyboard.CustomKeyboardView
 
 /**
  * Created by Don.Brody on 7/18/18.
  */
 class MainActivity : AppCompatActivity() {
-    private lateinit var keyboard: CustomisedKeyboardView
+    private lateinit var keyboard: CustomKeyboardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +22,6 @@ class MainActivity : AppCompatActivity() {
         val qwertyField: EditText = findViewById(R.id.testQwertyField)
 
         keyboard = findViewById(R.id.customKeyboardView)
-        keyboard.setTextFontSize(30.0F)
-        keyboard.setDecimalsSeparator(',')
-        keyboard.setThousandsSeparator('.')
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, numberField)
         keyboard.registerEditText(
             CustomKeyboardView.KeyboardType.NUMBER_DECIMAL,
