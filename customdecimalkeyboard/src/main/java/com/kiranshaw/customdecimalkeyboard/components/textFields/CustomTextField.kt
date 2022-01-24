@@ -12,9 +12,9 @@ import com.kiranshaw.customdecimalkeyboard.components.utilities.ComponentUtils
 /**
  * Created by Don.Brody on 11/10/18.
  */
-class CustomTextField(context: Context): AppCompatEditText(context) {
+class CustomTextField(context: Context) : AppCompatEditText(context) {
     var keyboardType: CustomKeyboardView.KeyboardType =
-            CustomKeyboardView.KeyboardType.QWERTY
+        CustomKeyboardView.KeyboardType.QWERTY
 
     companion object {
         const val DEFAULT_TEXT_SIZE = 18.0f
@@ -23,9 +23,11 @@ class CustomTextField(context: Context): AppCompatEditText(context) {
 
     init {
         layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ComponentUtils.dpToPx(context,
-                        ComponentUtils.DEFAULT_COMPONENT_HEIGHT_DP)
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ComponentUtils.dpToPx(
+                context,
+                ComponentUtils.DEFAULT_COMPONENT_HEIGHT_DP
+            )
         )
 
         val pad = ComponentUtils.dpToPx(context, 15)
@@ -38,6 +40,7 @@ class CustomTextField(context: Context): AppCompatEditText(context) {
         gravity = (Gravity.TOP or Gravity.START)
 
         ComponentUtils.configureTextField(
-                this, true, DEFAULT_MAX_CHARS)
+            this, true, DEFAULT_MAX_CHARS
+        )
     }
 }
