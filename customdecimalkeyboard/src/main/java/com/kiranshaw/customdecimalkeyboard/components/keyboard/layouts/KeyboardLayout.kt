@@ -65,7 +65,7 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
         val layoutParams: LayoutParams
         if(this !is QwertyKeyboardLayout) {
             layoutParams = LayoutParams(
-                (screenWidth / 4.0F - (gapSize * 2)).toInt(),
+                (screenWidth / 4.0F - (gapSize * 2.5)).toInt(),
                 LayoutParams.WRAP_CONTENT
             )
             layoutParams.setMargins(gapSize, gapSize, gapSize, gapSize)
