@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -128,29 +129,62 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
 
         field.addTextChangedListener(object : TextWatcher {
 
+            var prevString = ""
+            var curString = ""
+
             // https://stackify.dev/354994-add-comma-as-thousands-separator-for-numbers-in-edittext-for-android-studio
             override fun afterTextChanged(p0: Editable?) {
                 field.removeTextChangedListener(this)
 
                 try {
-                    var givenstring: String = p0.toString()
-                    if (givenstring.contains(thousandSeparator)) {
-                        givenstring = givenstring.replace(thousandSeparator.toString(), "")
+                    val givenString: String = p0.toString()
+                    curString = givenString
+                    val initialCurPos: Int = field.selectionEnd
+
+                    var isEditing = false
+                    if (initialCurPos != givenString.length) {
+                        isEditing = true
                     }
-                    val doubleVal: Double = givenstring.toDouble()
+                    var firstStr = givenString
+                    var secondStr = ""
+                    val indexOfDecimalPoint = givenString.indexOf(decimalSeparator)
+                    if (indexOfDecimalPoint != -1) {
+                        firstStr = givenString.substring(0, indexOfDecimalPoint)
+                        secondStr = givenString.substring(indexOfDecimalPoint, givenString.length)
+                    }
+                    if (firstStr.contains(thousandSeparator)) {
+                        firstStr = firstStr.replace(thousandSeparator.toString(), "")
+                    }
+                    val longVal: Long = firstStr.toLong()
 
                     // https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
                     val unusualSymbols = DecimalFormatSymbols()
                     unusualSymbols.decimalSeparator = decimalSeparator
                     unusualSymbols.groupingSeparator = thousandSeparator
 
-                    val formatter = DecimalFormat("#,##0.##", unusualSymbols)
+                    val formatter = DecimalFormat("#,###,###", unusualSymbols)
                     formatter.groupingSize = 3
-                    val formattedString = formatter.format(doubleVal)
+                    val formattedString = formatter.format(longVal)
 
-                    field.setText(formattedString)
-                    field.setSelection(field.text.length)
-                    // to place the cursor at the end of text
+                    val resultantStr = formattedString + secondStr
+                    field.setText(resultantStr)
+                    //region to calculate the final cursor position
+                    var finalCurPos = field.text.length
+                    if (isEditing) {
+                        finalCurPos = if (
+                            curString.length > prevString.length &&
+                            firstStr.length != 1 && firstStr.length % 3 == 1 &&
+                            initialCurPos != indexOfDecimalPoint
+                        ) {
+                            initialCurPos + 1
+                        } else {
+                            initialCurPos
+                        }
+                    }
+                    //endregion
+                    field.setSelection(finalCurPos)
+                    // to place the cursor at the suitable position
+                    prevString = curString
                 } catch (nfe: NumberFormatException) {
                     nfe.printStackTrace()
                 } catch (e: Exception) {
