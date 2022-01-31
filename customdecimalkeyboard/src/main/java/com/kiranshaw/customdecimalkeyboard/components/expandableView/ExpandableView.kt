@@ -44,7 +44,7 @@ abstract class ExpandableView(
                     deltaY = pixels.toFloat() // pushes layout down 500 device pixels
                     animate().translationY(deltaY).setDuration(millis).withEndAction {
                         updateState(ExpandableState.COLLAPSED)
-                        visibility = View.INVISIBLE
+                        visibility = View.GONE
                     }.start()
                 }
                 ExpandableState.COLLAPSED -> {
