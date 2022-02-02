@@ -12,9 +12,10 @@ class NumberDecimalKeyboardLayout(
     context: Context, controller: KeyboardController?,
     private val decimalSeparator: Char,
     private val customTextSize: Float,
-    private val customGapSize: Int
+    private val customGapSize: Int,
+    bgColor: Int
 ) :
-    KeyboardLayout(context, controller) {
+    KeyboardLayout(context, controller, bgColor) {
 
     override fun createRows(): List<LinearLayout> {
         val columnWidth = 0.20f

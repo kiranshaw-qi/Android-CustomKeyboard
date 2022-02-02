@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -44,9 +43,9 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
     var thousandSeparator: Char = ','
     var textSize: Float = 22.0F
     var gapSize: Int = 8
+    var bgColor = Color.WHITE
 
     init {
-        setBackgroundColor(Color.GRAY)
 
         keyboardListener = object: KeyboardListener {
             override fun characterClicked(c: Char) {
@@ -263,7 +262,8 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
                     createKeyboardController(type, ic),
                     decimalSeparator,
                     textSize,
-                    gapSize
+                    gapSize,
+                    bgColor
                 )
             }
             KeyboardType.QWERTY -> {

@@ -29,4 +29,8 @@ class CustomisedKeyboardView(context: Context, attr: AttributeSet) :
     fun setBtnGapSize(gapSize: Int) { // in Dp
         this.gapSize = gapSize
     }
+
+    override fun setBackgroundColor(bgColor: Int) { // in Dp
+        this.bgColor = bgColor
+    }
 }

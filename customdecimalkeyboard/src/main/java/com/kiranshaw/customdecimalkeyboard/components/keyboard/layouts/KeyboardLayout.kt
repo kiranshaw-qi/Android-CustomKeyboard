@@ -19,6 +19,7 @@ import com.kiranshaw.customdecimalkeyboard.components.utilities.ComponentUtils
  * Created by Don.Brody on 7/18/18.
  */
 abstract class KeyboardLayout(context: Context, private val controller: KeyboardController?,
+                              private val bgColor: Int = Color.WHITE,
                               var hasNextFocus: Boolean = false) : LinearLayout(context) {
 
     private var screenWidth = 0.0f
@@ -56,7 +57,7 @@ abstract class KeyboardLayout(context: Context, private val controller: Keyboard
         }
         wrapper.layoutParams = lp
         wrapper.orientation = VERTICAL
-        wrapper.setBackgroundColor(Color.WHITE)
+        wrapper.setBackgroundColor(bgColor)
         return wrapper
     }
 

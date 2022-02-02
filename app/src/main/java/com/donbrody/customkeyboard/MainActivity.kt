@@ -1,6 +1,7 @@
 package com.donbrody.customkeyboard
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         keyboard.setTextFontSize(30.0F)
         keyboard.setDecimalsSeparator(',')
         keyboard.setThousandsSeparator('.')
+        keyboard.setBackgroundColor(Color.WHITE)
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.NUMBER, numberField)
         keyboard.registerEditText(
             CustomKeyboardView.KeyboardType.NUMBER_DECIMAL,
