@@ -30,7 +30,7 @@ class CustomisedKeyboardView(context: Context, attr: AttributeSet) :
         this.gapSize = gapSize
     }
 
-    override fun setBackgroundColor(bgColor: Int) { // in Dp
+    override fun setBackgroundColor(bgColor: Int) {
         this.bgColor = bgColor
     }
 }
