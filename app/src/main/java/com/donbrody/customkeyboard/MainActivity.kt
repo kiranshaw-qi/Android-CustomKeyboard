@@ -34,6 +34,14 @@ class MainActivity : AppCompatActivity() {
             CustomKeyboardView.KeyboardType.NUMBER_DECIMAL,
             numberDecimalField
         )
+        // can separately add any TextWatcher
+        numberDecimalField.addTextChangedListener(
+            CustomTextWatcher(
+                numberDecimalField,
+                ',',
+                '.'
+            )
+        )
         keyboard.registerEditText(CustomKeyboardView.KeyboardType.QWERTY, qwertyField)
 
         val switchActivitiesButton: Button = findViewById(R.id.switchActivitiesButton)

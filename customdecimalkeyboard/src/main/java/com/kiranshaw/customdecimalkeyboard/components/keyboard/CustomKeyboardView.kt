@@ -2,9 +2,7 @@ package com.kiranshaw.customdecimalkeyboard.components.keyboard
 
 import android.content.Context
 import android.graphics.Color
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -26,16 +24,13 @@ import com.kiranshaw.customdecimalkeyboard.components.keyboard.layouts.NumberKey
 import com.kiranshaw.customdecimalkeyboard.components.keyboard.layouts.QwertyKeyboardLayout
 import com.kiranshaw.customdecimalkeyboard.components.textFields.CustomTextField
 import com.kiranshaw.customdecimalkeyboard.components.utilities.ComponentUtils
-import java.lang.Exception
-import java.lang.NumberFormatException
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 import java.util.*
 
 /**
  * Created by Don.Brody on 7/18/18.
  */
-open class CustomKeyboardView(context: Context, attr: AttributeSet) : ExpandableView(context, attr) {
+open class CustomKeyboardView(context: Context, attr: AttributeSet) :
+    ExpandableView(context, attr) {
     private var fieldInFocus: EditText? = null
     private val keyboards = HashMap<EditText, KeyboardLayout?>()
     private val keyboardListener: KeyboardListener
@@ -47,7 +42,7 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
 
     init {
 
-        keyboardListener = object: KeyboardListener {
+        keyboardListener = object : KeyboardListener {
             override fun characterClicked(c: Char) {
                 // don't need to do anything here
             }
@@ -66,7 +61,7 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
         }
 
         // register listener with parent (listen for state changes)
-        registerListener(object: ExpandableStateListener {
+        registerListener(object : ExpandableStateListener {
             override fun onStateChange(state: ExpandableState) {
                 if (state === ExpandableState.EXPANDED) {
                     checkLocationOnScreen()
@@ -120,89 +115,11 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
             }
         }
 
-        field.setOnClickListener({
+        field.setOnClickListener {
             if (!isExpanded) {
                 translateLayout()
             }
-        })
-
-        field.addTextChangedListener(object : TextWatcher {
-
-            var prevString = ""
-            var curString = ""
-
-            // https://stackify.dev/354994-add-comma-as-thousands-separator-for-numbers-in-edittext-for-android-studio
-            override fun afterTextChanged(p0: Editable?) {
-                field.removeTextChangedListener(this)
-
-                try {
-                    val givenString: String = p0.toString()
-                    curString = givenString
-                    val initialCurPos: Int = field.selectionEnd
-
-                    var isEditing = false
-                    if (initialCurPos != givenString.length) {
-                        isEditing = true
-                    }
-                    var firstStr = givenString
-                    var secondStr = ""
-                    val indexOfDecimalPoint = givenString.indexOf(decimalSeparator)
-                    if (indexOfDecimalPoint != -1) {
-                        firstStr = givenString.substring(0, indexOfDecimalPoint)
-                        secondStr = givenString.substring(indexOfDecimalPoint, givenString.length)
-                    }
-                    if (firstStr.contains(thousandSeparator)) {
-                        firstStr = firstStr.replace(thousandSeparator.toString(), "")
-                    }
-                    val longVal: Long = firstStr.toLong()
-
-                    // https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
-                    val unusualSymbols = DecimalFormatSymbols()
-                    unusualSymbols.decimalSeparator = decimalSeparator
-                    unusualSymbols.groupingSeparator = thousandSeparator
-
-                    val formatter = DecimalFormat("#,###,###", unusualSymbols)
-                    formatter.groupingSize = 3
-                    val formattedString = formatter.format(longVal)
-
-                    val resultantStr = formattedString + secondStr
-                    field.setText(resultantStr)
-                    //region to calculate the final cursor position
-                    var finalCurPos = field.text.length
-                    if (isEditing) {
-                        finalCurPos = if (
-                            curString.length > prevString.length &&
-                            firstStr.length != 1 && firstStr.length % 3 == 1 &&
-                            initialCurPos != indexOfDecimalPoint
-                        ) {
-                            initialCurPos + 1
-                        } else {
-                            initialCurPos
-                        }
-                    }
-                    //endregion
-                    field.setSelection(finalCurPos)
-                    // to place the cursor at the suitable position
-                    prevString = curString
-                } catch (nfe: NumberFormatException) {
-                    nfe.printStackTrace()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-                field.addTextChangedListener(this)
-
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                // no need any callback for this.
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                // no need any callback for this.
-            }
-
-        })
+        }
     }
 
     fun autoRegisterEditTexts(rootView: ViewGroup) {
@@ -252,7 +169,7 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
     }
 
     private fun createKeyboardLayout(type: KeyboardType, ic: InputConnection): KeyboardLayout? {
-        when(type) {
+        when (type) {
             KeyboardType.NUMBER -> {
                 return NumberKeyboardLayout(context, createKeyboardController(type, ic))
             }
@@ -273,8 +190,11 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
         }
     }
 
-    private fun createKeyboardController(type: KeyboardType, ic: InputConnection): KeyboardController? {
-        return when(type) {
+    private fun createKeyboardController(
+        type: KeyboardType,
+        ic: InputConnection
+    ): KeyboardController? {
+        return when (type) {
             KeyboardType.NUMBER_DECIMAL -> {
                 NumberDecimalKeyboardController(ic)
             }
@@ -318,7 +238,8 @@ open class CustomKeyboardView(context: Context, attr: AttributeSet) : Expandable
 
                     if (fieldY > keyboardY) {
                         val deltaY = (fieldY - keyboardY)
-                        val scrollTo = (fieldParent.scrollY + deltaY + this.measuredHeight + 10.toDp)
+                        val scrollTo =
+                            (fieldParent.scrollY + deltaY + this.measuredHeight + 10.toDp)
                         fieldParent.smoothScrollTo(0, scrollTo)
                     }
                     break
